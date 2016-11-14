@@ -1,3 +1,4 @@
+
 /*
  * PONG GAME REQUIREMENTS
  * This simple "tennis like" game features two paddles and a ball, 
@@ -15,16 +16,20 @@
  *  
  *  Version: 0.5
  */
-package vn.vanlanguni.ponggame;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -34,11 +39,15 @@ import javax.swing.Timer;
  *
  */
 public class PongPanel extends JPanel implements ActionListener, KeyListener {
+	JButton btnChangeBallColor = new JButton();
+
 	private static final long serialVersionUID = -1097341635155021546L;
 
 	private boolean showTitleScreen = true;
 	private boolean playing;
 	private boolean gameOver;
+	private boolean ballmove1;
+	private boolean ballmove2;
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
@@ -50,23 +59,24 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean sPressed;
 
 	/** The ball: position, diameter */
-	private int ballX = 200;
-	private int ballY = 200;
-	private int diameter = 20;
+	private int ballX = 240; // qua bong di chuyen tu vi tri trung tam khi bat
+								// dau game
+	private int ballY = 240; // ... //
+	private int diameter = 100;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
-	private int playerOneY = 250;
+	private int playerOneY = 200;
 	private int playerOneWidth = 10;
 	private int playerOneHeight = 50;
 
 	/** Player 2's paddle: position and size */
-	private int playerTwoX = 465;
-	private int playerTwoY = 250;
+	private int playerTwoX = 490; // Doi chieu dai cua 2 thanh chan bang nhau
+	private int playerTwoY = 200;
 	private int playerTwoWidth = 10;
-	private int playerTwoHeight = 60;
+	private int playerTwoHeight = 50;
 
 	/** Speed of the paddle - How fast the paddle move. */
 	private int paddleSpeed = 5;
@@ -74,11 +84,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	/** Player score, show on upper left and right. */
 	private int playerOneScore;
 	private int playerTwoScore;
+	
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
-
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
@@ -102,21 +112,21 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 			// move player 1
 			// Move up if after moving, paddle is not outside the screen
-			if (upPressed && playerOneY - paddleSpeed > 0) {
+			if (upPressed && playerOneY - paddleSpeed >= 0) {
 				playerOneY -= paddleSpeed;
 			}
 			// Move down if after moving paddle is not outside the screen
-			if (downPressed && playerOneY + playerOneHeight + paddleSpeed < getHeight()) {
+			if (downPressed && playerOneY + playerOneHeight + paddleSpeed <= getHeight()) {
 				playerOneY += paddleSpeed;
 			}
 
 			// move player 2
 			// Move up if after moving paddle is not outside the screen
-			if (wPressed && playerTwoY - paddleSpeed > 0) {
+			if (wPressed && playerTwoY - paddleSpeed >= 0) {
 				playerTwoY -= paddleSpeed;
 			}
 			// Move down if after moving paddle is not outside the screen
-			if (sPressed && playerTwoY + playerTwoHeight + paddleSpeed < getHeight()) {
+			if (sPressed && playerTwoY + playerTwoHeight + paddleSpeed <= getHeight()) {
 				playerTwoY += paddleSpeed;
 			}
 
@@ -128,8 +138,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int nextBallLeft = ballX + ballDeltaX;
 			int nextBallRight = ballX + diameter + ballDeltaX;
 			// FIXME Something not quite right here
-			int nextBallTop = ballY;
-			int nextBallBottom = ballY + diameter;
+			int nextBallTop = ballY + ballDeltaY;
+			int nextBallBottom = ballY + diameter + ballDeltaY;
 
 			// Player 1's paddle position
 			int playerOneRight = playerOneX + playerOneWidth;
@@ -151,19 +161,24 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				// is it going to miss the paddle?
 				if (nextBallTop > playerOneBottom || nextBallBottom < playerOneTop) {
 
-					playerOneScore++;
+					playerTwoScore++;
 
 					// Player 2 Win, restart the game
 					if (playerTwoScore == 3) {
 						playing = false;
 						gameOver = true;
+						playerOneScore = 0;
+						playerTwoScore = 0;
 					}
-					ballX = 200;
-					ballY = 200;
+					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
+									// bat dau game
+					ballY = 240; // ...
+					ballmove1 = true;
+					ballmove2 = false;
 				} else {
 					// If the ball hitting the paddle, it will bounce back
-					// FIXME Something wrong here
-					ballDeltaX *= 1;
+					ballDeltaX *= -1; // bong cham vao thanh chan cua player 1
+										// se bat lai
 				}
 			}
 
@@ -178,14 +193,19 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					if (playerOneScore == 3) {
 						playing = false;
 						gameOver = true;
+						playerOneScore = 0;
+						playerTwoScore = 0;
 					}
-					ballX = 200;
-					ballY = 200;
+					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
+									// bat dau game
+					ballY = 240; // ...
+					ballmove1 = false;
+					ballmove2 = true;
 				} else {
 
 					// If the ball hitting the paddle, it will bounce back
-					// FIXME Something wrong here
-					ballDeltaX *= 1;
+					ballDeltaX *= -1; // bong cham vao thanh chan cua player 2
+										// se bat lai
 				}
 			}
 
@@ -214,7 +234,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// FIXME Wellcome message below show smaller than game title
 			g.drawString("Press 'P' to play.", 175, 400);
 		} else if (playing) {
-
 			/* Game is playing */
 
 			// set the coordinate limit
@@ -222,11 +241,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int playerTwoLeft = playerTwoX;
 
 			// draw dashed line down center
+			g.setColor(Color.GREEN);// Fix duong lane trung tam thanh mau xanh
 			for (int lineY = 0; lineY < getHeight(); lineY += 50) {
 				g.drawLine(250, lineY, 250, lineY + 25);
 			}
 
 			// draw "goal lines" on each side
+			g.setColor(Color.GRAY);// Fix 2 duong bien mau xam
 			g.drawLine(playerOneRight, 0, playerOneRight, getHeight());
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
 
@@ -234,13 +255,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100); // Player 1
 																	// score
-			g.drawString(String.valueOf(playerOneScore), 400, 100); // Player 2
+			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
 																	// score
 
 			// draw the ball
 			g.setColor(Color.RED);
 			g.fillOval(ballX, ballY, diameter, diameter);
-
+			
 			// draw the paddles
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
@@ -273,7 +294,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		if (showTitleScreen) {
-			if (e.getKeyChar() == 'p') {
+			if (e.getKeyCode() == KeyEvent.VK_P) { // nhấn phím P không phân
+													// biệt hoa hay thường để
+													// bắt đầu chương trình
 				showTitleScreen = false;
 				playing = true;
 			}
@@ -292,8 +315,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			showTitleScreen = true;
 			playerOneY = 250;
 			playerTwoY = 250;
-			ballX = 250;
-			ballY = 250;
+			ballX = 240; // qua bong di chuyen tu vi tri trung tam khi bat dau
+							// game
+			ballY = 240; // ...
 		}
 	}
 
@@ -305,7 +329,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
 			wPressed = false;
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			wPressed = false;
+			sPressed = false; // nhấn nút S để di chuyển thanh chắn của Player 2
+								// xuống
 		}
 	}
 
