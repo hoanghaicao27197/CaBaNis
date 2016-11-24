@@ -21,38 +21,42 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
  * 
- * @author Invisible Man
+ * @author CaBaNis = Team 2.5
  *
  */
-public class PongPanel extends JPanel implements ActionListener, KeyListener {
-	JButton btnChangeBallColor = new JButton();
-
-	private static final long serialVersionUID = -1097341635155021546L;
+public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseMotionListener , MouseListener{
+	
+	private static final long serialVersionUID = 1L;
 
 	private boolean showTitleScreen = true;
 	private boolean playing;
 	private boolean gameOver;
-	private boolean ballmove1;
-	private boolean ballmove2;
 
+	
+	boolean setting;
+	
+
+	
 	/** Background. */
-	private Color backgroundColor = Color.BLACK;
-
+	//private Color backgroundColor = Color.BLACK;//
+	ImageIcon imgbpong;
+	
 	/** State on the control keys. */
 	private boolean upPressed;
 	private boolean downPressed;
@@ -60,24 +64,24 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean sPressed;
 
 	/** The ball: position, diameter */
-	private int ballX = 240; // qua bong di chuyen tu vi tri trung tam khi bat
+	private int ballX = 200; // qua bong di chuyen tu vi tri trung tam khi bat
 								// dau game
-	private int ballY = 240; // ... //
-	private int diameter = 40;
+	private int ballY = 200; // ... //
+	private int diameter = 20;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
-	private int playerOneY = 200;
-	private int playerOneWidth = 10;
-	private int playerOneHeight = 50;
+	private int playerOneY = 250;
+	private int playerOneWidth = 30;
+	private int playerOneHeight = 80;
 
 	/** Player 2's paddle: position and size */
-	private int playerTwoX = 490; // Doi chieu dai cua 2 thanh chan bang nhau
-	private int playerTwoY = 200;
-	private int playerTwoWidth = 10;
-	private int playerTwoHeight = 50;
+	private int playerTwoX = 465; // Doi chieu dai cua 2 thanh chan bang nhau
+	private int playerTwoY = 250;
+	private int playerTwoWidth = 30;
+	private int playerTwoHeight = 80;
 
 	/** Speed of the paddle - How fast the paddle move. */
 	private int paddleSpeed = 5;
