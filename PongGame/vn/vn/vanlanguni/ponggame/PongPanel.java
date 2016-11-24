@@ -52,7 +52,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	boolean setting;
 	
 
-	
+	private volatile boolean isPaused = false;
+	//button play
+	Point  pPlay , pSetting,pBack,pMenu,pSa;
+	ImageIcon imgbtnPlay,imgbtnSetting,imgbtnBack,imgbgP,imgbtnMenu,imgbtnSa;
+	int  rPlay,rSetting,rBack,rMenu,rSa;
+	String nameP,nameS,nameB,namePlayer1,namePlayer2;
+	boolean intersec, intersec1,intersec2,intersec3,intersec4 ;
+
 	/** Background. */
 	//private Color backgroundColor = Color.BLACK;//
 	ImageIcon imgbpong;
@@ -93,13 +100,43 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
-		setBackground(backgroundColor);
+		
+		//setBackground(backgroundColor); //Chung ta them hinh` khong dung` mau`
+		//Positions setup
+		namePlayer1 = "Player 1 ";
+		namePlayer2 = "Player 2 ";
+		pBack = new Point(25,445);
+		pPlay = new Point(222, 300);
+		pSetting = new Point(25,445);
+		pMenu = new Point(180,280);
+		pSa = new Point(180,400);
+		rMenu = 40 ;
+		rSa = 35;
+		rSetting = 20;
+		rBack = 15;
+		rPlay = 40;
+		
+		
+		// Khai bien de chen` hinh`
+		nameP = ""; //nut play
+		nameS = ""; //nut setting
+		nameB = ""; //nut back
+		imgpad1 = new ImageIcon(""); // paddle 1
+		imgpad2 = new ImageIcon(""); // paddle 2
+
+		ball1 = new ImageIcon(""); //skin 1
+		ball2 = new ImageIcon(""); //skin 2 
+		ball3 = new ImageIcon(""); //skin 3
+		
+		
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
-
+		addMouseMotionListener(this);
+		addMouseListener(this);
+		
 		// call step() 60 fps
-		Timer timer = new Timer(1000 / 60, this);
+		Timer timer = new Timer(800 / 60, this);
 		timer.start();
 	}
 
