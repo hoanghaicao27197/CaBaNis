@@ -12,12 +12,12 @@ import javax.swing.JFrame;
 
 /**
  * 
- * @author Invisible Man
+ * @author CaBaNis - Team 2.5
  *
  */
 public class MainGameUI extends JFrame{
 	private static final int _HEIGHT = 500;
-	private static final int _WIDTH = 515;
+	private static final int _WIDTH = 500;
 	private PongPanel pongPanel;
 	
 	public MainGameUI(){
@@ -27,10 +27,12 @@ public class MainGameUI extends JFrame{
 		pongPanel = new PongPanel();
 		getContentPane().add(pongPanel, BorderLayout.CENTER);
 		pack();
+		setResizable(false);
 	}
 
     public static void main(String[] args) {
        MainGameUI mainFrame = new MainGameUI();
        mainFrame.setVisible(true);
+       mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }
