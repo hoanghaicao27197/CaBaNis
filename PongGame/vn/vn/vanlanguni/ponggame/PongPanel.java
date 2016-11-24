@@ -37,7 +37,7 @@ import javax.swing.Timer;
 
 /**
  * 
- * @author CaBaNis = Team 2.5
+ * @author CaBaNis - Team 2.5
  *
  */
 public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseMotionListener , MouseListener{
