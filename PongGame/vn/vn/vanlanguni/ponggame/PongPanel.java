@@ -195,6 +195,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
+				Sound.play(""); // SOUND HERE //
 				ballDeltaY *= -1;
 			}
 
@@ -202,19 +203,20 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (nextBallLeft < playerOneRight) {
 				// is it going to miss the paddle?
 				if (nextBallTop > playerOneBottom || nextBallBottom < playerOneTop) {
-
+					Sound.play("");   // SOUND HERE //
 					playerTwoScore++;
 
 					// Player 2 Win, restart the game
 					if (playerTwoScore == 3) {
 						playing = false;
 						gameOver = true;
+						Sound.play("");  // SOUND HERE //
 						playerOneScore = 0;
 						playerTwoScore = 0;
 					}
-					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
+					ballX = 250; // qua bong di chuyen tu vi tri trung tam khi
 									// bat dau game
-					ballY = 240; // ...
+					ballY = 250; // ...
 					ballmove1 = true;
 					ballmove2 = false;
 				} else {
@@ -228,7 +230,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (nextBallRight > playerTwoLeft) {
 				// is it going to miss the paddle?
 				if (nextBallTop > playerTwoBottom || nextBallBottom < playerTwoTop) {
-
+					Sound.play("");    // SOUND HERE //
 					playerOneScore++;
 
 					// Player 1 Win, restart the game
@@ -237,10 +239,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						gameOver = true;
 						playerOneScore = 0;
 						playerTwoScore = 0;
+						Sound.play(""); // SOUND HERE //
 					}
-					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
+					ballX = 250; // qua bong di chuyen tu vi tri trung tam khi
 									// bat dau game
-					ballY = 240; // ...
+					ballY = 250; // ...
 					ballmove1 = false;
 					ballmove2 = true;
 				} else {
