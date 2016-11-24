@@ -118,9 +118,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		
 		
 		// Khai bien de chen` hinh`
-		nameP = ""; //nut play
-		nameS = ""; //nut setting
-		nameB = ""; //nut back
+		nameP = "hinh/play1.png"; //nut play
+		nameS = "hinh/setting1.png"; //nut setting
+		nameB = "hinh/back.png"; //nut back
 		imgpad1 = new ImageIcon(""); // paddle 1
 		imgpad2 = new ImageIcon(""); // paddle 2
 
@@ -273,7 +273,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		
 		if (showTitleScreen) {
 			
-			Sound.play("") // Welcome screen sound
+			Sound.play(""); // Welcome screen sound
 			
 			/* Show welcome screen */
 			Image imgbpong = new ImageIcon("").getImage(); // WELCOME screen image
