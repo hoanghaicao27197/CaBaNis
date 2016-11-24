@@ -103,8 +103,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		
 		//setBackground(backgroundColor); //Chung ta them hinh` khong dung` mau`
 		//Positions setup
-		namePlayer1 = "Player 1 ";
-		namePlayer2 = "Player 2 ";
+		namePlayer1 = "Dep trai 1 ";
+		namePlayer2 = "Dep trai 2 ";
 		pBack = new Point(25,445);
 		pPlay = new Point(222, 300);
 		pSetting = new Point(25,445);
@@ -189,9 +189,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			int playerOneBottom = playerOneY + playerOneHeight;
 
 			// Player 2's paddle position
-			float playerTwoLeft = playerTwoX;
-			float playerTwoTop = playerTwoY;
-			float playerTwoBottom = playerTwoY + playerTwoHeight;
+			int playerTwoLeft = playerTwoX;
+			int playerTwoTop = playerTwoY;
+			int playerTwoBottom = playerTwoY + playerTwoHeight;
 
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
