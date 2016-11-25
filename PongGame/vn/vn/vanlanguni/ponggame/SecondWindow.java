@@ -21,13 +21,13 @@ public class SecondWindow extends JDialog{
 	private JTextField txtUsername2;
 	//Xem khai bao MyDialogResult o cuoi class nay
 	public MyDialogResult dialogResult;
-	
+
 	public SecondWindow() {
 		setPreferredSize(new Dimension(300, 200));
 		setTitle("Second Window");
 		getContentPane().setLayout(null);
 		setModal(true);
-		
+
 		dialogResult = MyDialogResult.DEFAULT;
 		txtUsername1 = new JTextField(10);
 		txtUsername2 = new JTextField(10);
@@ -35,15 +35,15 @@ public class SecondWindow extends JDialog{
 		getContentPane().add(txtUsername2);
 		txtUsername1.setBounds(90, 26, 100, 20);
 		txtUsername2.setBounds(90, 66, 100, 20);
-		
+
 		JLabel lblUser_1 = new JLabel("Username 1");
 		lblUser_1.setBounds(10, 29, 71, 14);
 		getContentPane().add(lblUser_1);
-		
+
 		JLabel lblUser_2 = new JLabel("Username 2");
 		lblUser_2.setBounds(10, 69, 71, 14);
 		getContentPane().add(lblUser_2);
-		
+
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -53,7 +53,7 @@ public class SecondWindow extends JDialog{
 		});
 		btnSave.setBounds(44, 114, 89, 23);
 		getContentPane().add(btnSave);
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -65,7 +65,7 @@ public class SecondWindow extends JDialog{
 		getContentPane().add(btnCancel);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		pack();
-		
+
 		addWindowListener(new WindowAdapter() {
 
 			@Override
@@ -77,7 +77,7 @@ public class SecondWindow extends JDialog{
 			}
 		});
 	}
-	
+
 	public SettingsUsername getSetings(){
 		SettingsUsername st = new SettingsUsername();
 		st.setUserName1(txtUsername1.getText());

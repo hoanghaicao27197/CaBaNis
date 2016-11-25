@@ -7,7 +7,7 @@ public class SettingsUsername {
 	private Color backgroundColor, paddleColor, ballColor;
 
 	public SettingsUsername(){	}
-	
+
 	public SettingsUsername(String userName1, String userName2, Color backgroundColor, Color paddleColor, Color ballColor) {
 		super();
 		this.userName1 = userName1;
