@@ -41,16 +41,16 @@ import javax.swing.Timer;
  *
  */
 public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseMotionListener , MouseListener{
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private boolean showTitleScreen = true;
 	private boolean playing;
 	private boolean gameOver;
 
-	
+
 	boolean setting;
-	
+
 
 	private volatile boolean isPaused = false;
 	//button play
@@ -63,7 +63,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** Background. */
 	//private Color backgroundColor = Color.BLACK;//
 	ImageIcon imgbpong;
-	
+
 	/** State on the control keys. */
 	private boolean upPressed;
 	private boolean downPressed;
@@ -72,7 +72,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	/** The ball: position, diameter */
 	private int ballX = 200; // qua bong di chuyen tu vi tri trung tam khi bat
-								// dau game
+	// dau game
 	private int ballY = 200; // ... //
 	private int diameter = 20;
 	private int ballDeltaX = -1;
@@ -96,11 +96,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** Player score, show on upper left and right. */
 	private int playerOneScore;
 	private int playerTwoScore;
-	
+
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
-		
+
 		//setBackground(backgroundColor); //Chung ta them hinh` khong dung` mau`
 		//Positions setup
 		namePlayer1 = "Dep trai 1 ";
@@ -115,8 +115,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		rSetting = 20;
 		rBack = 15;
 		rPlay = 40;
-		
-		
+
+
 		// Khai bien de chen` hinh`
 		nameP = "hinh/play1.png"; //nut play
 		nameS = "hinh/setting1.png"; //nut setting
@@ -127,14 +127,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		ball1 = new ImageIcon(""); //skin 1
 		ball2 = new ImageIcon(""); //skin 2 
 		ball3 = new ImageIcon(""); //skin 3
-		
-		
+
+
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
 		addMouseMotionListener(this);
 		addMouseListener(this);
-		
+
 		// call step() 60 fps
 		Timer timer = new Timer(800 / 60, this);
 		timer.start();
@@ -215,14 +215,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						playerTwoScore = 0;
 					}
 					ballX = 250; // qua bong di chuyen tu vi tri trung tam khi
-									// bat dau game
+					// bat dau game
 					ballY = 250; // ...
 					ballmove1 = true;
 					ballmove2 = false;
 				} else {
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 1
-										// se bat lai
+					// se bat lai
 				}
 			}
 
@@ -242,7 +242,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						Sound.play(""); // SOUND HERE //
 					}
 					ballX = 250; // qua bong di chuyen tu vi tri trung tam khi
-									// bat dau game
+					// bat dau game
 					ballY = 250; // ...
 					ballmove1 = false;
 					ballmove2 = true;
@@ -250,7 +250,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 2
-										// se bat lai
+					// se bat lai
 				}
 			}
 
@@ -270,14 +270,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		imgbtnPlay = new ImageIcon(nameP);
 		imgbtnSetting = new ImageIcon(nameS);
 		imgbgP = new ImageIcon("");
-		
+
 		if (showTitleScreen) {
-			
+
 			Sound.play(""); // Welcome screen sound
-			
+
 			/* Show welcome screen */
 			Image imgbpong = new ImageIcon("").getImage(); // WELCOME screen image
-			
+
 			// Draw game title and start message
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			//g.drawString("Pong Game", 130, 100);
@@ -289,16 +289,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				g.setFont(new Font(Font.SANS_SERIF, Font.TRUETYPE_FONT, 20));
 				g.drawString("Setting", pSetting.x +30 , pSetting.y +10);
 			}
-			
+
 			// FIXME Wellcome message below show smaller than game title
 			//g.drawString("Press 'P' to play.", 175, 400);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
 			//g.drawString("Press 'S' to Setting.", 135, 400);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
-			
-			
+
+
 		} else if (playing) {
-			
+
 			/* Game is playing */
 			Image background = new ImageIcon("").getImage(); // playing background //
 			g.drawImage(background, 0, 0, 500, 500, null);
@@ -307,7 +307,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawString(namePlayer1, 30, 50);
 			g.setColor(Color.red);
 			g.drawString(namePlayer2, 320, 50);
-			
+
 			// set the coordinate limit
 			int playerOneRight = playerOneX + playerOneWidth;
 			int playerTwoLeft = playerTwoX;
@@ -325,20 +325,20 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawLine(playerOneRight, 0, playerOneRight, getHeight());
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight()); 
 			 *
-			**/
+			 **/
 
 			// draw the scores
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 215, 270); // Player 1
-																	// score
+			// score
 			g.drawString(String.valueOf(playerTwoScore), 265, 270); // Player 2
-																	// score
+			// score
 
 			// draw the ball
 			g.setColor(Color.RED);
 			//g.fillOval(ballX, ballY, diameter, diameter);
 			g.drawImage(ball1.getImage(),ballX, ballY, diameter, diameter,null);
-			
+
 			// draw the paddles
 			//g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			//g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
@@ -354,7 +354,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				g.setFont(new Font(Font.SANS_SERIF, Font.TRUETYPE_FONT, 20));
 				g.drawString("Back", pSetting.x +20 , pSetting.y +5);
 			}
-			
+
 		} else if (gameOver) {
 			imgbtnMenu = new ImageIcon(""); //Menu Button Image
 			imgbtnSa = new ImageIcon(""); // Restart Button Image
@@ -364,8 +364,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			Draw scores
 			Draw the winner name
 			Draw Restart message
-			*/
-			
+			 */
+
 			// TODO Set Blue color
 			// TODO Draw a restart message
 			g.drawImage(imgbgP.getImage(),0,0,500,500,null);
@@ -392,14 +392,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				g.setColor(Color.blue);
 				g.setFont(new Font(Font.SANS_SERIF, Font.TRUETYPE_FONT, 20));
 				g.drawString("Back to Menu", pMenu.x +35 , pMenu.y +25);
-				
+
 			}
 			if (intersec1) {
 				g.setColor(Color.blue);
 				g.setFont(new Font(Font.SANS_SERIF, Font.TRUETYPE_FONT, 20));
 				g.drawString("Restart the game", pSa.x +35 , pSa.y +25);
 			}
-			
+
 			/**
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
@@ -407,19 +407,19 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			} else {
 				g.drawString("Player 2 Wins!", 165, 200);
 			}
-					
+
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
 			 * 
 			 */
 		}
 	}
 
-public void keyTyped(KeyEvent e) {
-		
+	public void keyTyped(KeyEvent e) {
+
 	}
 
 	public void keyPressed(KeyEvent e) {
-		
+
 		if (playing) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				upPressed = true;
@@ -447,9 +447,9 @@ public void keyTyped(KeyEvent e) {
 			w.setVisible(true);
 			Settings s = w.getSetings();
 			System.out.println("After open window");
-			
+
 			// Stop and wait for user input
-			
+
 			if (w.dialogResult == MyDialogResult.YES) {
 				System.out.printf("User settings: \n Username1: %s \n Username2: %s",
 						s.getUserName1(), s.getUserName2());
@@ -473,13 +473,13 @@ public void keyTyped(KeyEvent e) {
 		}
 	}
 	public void pauseGame (){
-	
+
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -500,50 +500,50 @@ public void keyTyped(KeyEvent e) {
 		}
 		if (getPointDistance(arg0.getPoint(), pBack)<=rBack){
 			intersec2 =true ;
-			
+
 		}
 		else {
 			intersec2 = false;
-			}
+		}
 		if (getPointDistance(arg0.getPoint(), pMenu)<=rMenu){
 			intersec =true ;
-			
+
 		}
 		else {
 			intersec = false;
-			}
+		}
 		if (getPointDistance(arg0.getPoint(), pSa)<=rSa){
 			intersec1 =true ;
-			
+
 		}
 		else {
 			intersec1 = false;
-			}
+		}
 	}
-		public double getPointDistance(Point p1, Point p2) {
-			return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
-		}
+	public double getPointDistance(Point p1, Point p2) {
+		return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+	}
 
-		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			
-		}
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
 
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-		}
+	}
 
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			
-		}
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			
-		}
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			if (showTitleScreen){
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+
+	}
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (showTitleScreen){
 			if (getPointDistance(e.getPoint(),pPlay) <= rPlay){
 				Sound.play(""); //Click Sound
 				showTitleScreen = false;
@@ -551,21 +551,21 @@ public void keyTyped(KeyEvent e) {
 				setting = false;
 				playing = true;
 			}
-			}
-			if (showTitleScreen){
-				if (getPointDistance(e.getPoint(), pSetting)<=rSetting){
-				
+		}
+		if (showTitleScreen){
+			if (getPointDistance(e.getPoint(), pSetting)<=rSetting){
+
 				Sound.play(""); //Click Sound
 				setting = true;
 				showTitleScreen = false;
 				playing = false ;
 				gameOver = false ;
-				}
 			}
-			
-			else if (setting){
-				if (getPointDistance(e.getPoint(), pBack)<=rBack){
-				
+		}
+
+		else if (setting){
+			if (getPointDistance(e.getPoint(), pBack)<=rBack){
+
 				Sound.play(""); //Click Sound
 				showTitleScreen = true;
 				playing = false ;
@@ -573,32 +573,32 @@ public void keyTyped(KeyEvent e) {
 				gameOver = false;
 			}
 		}
-			if (gameOver){
-				if ( getPointDistance(e.getPoint(), pMenu)<=rMenu){
-					Sound.play(""); //Click Sound
-					gameOver = false;
-					showTitleScreen = true;
-					playerOneY = 250;
-					playerTwoY = 250;
-					ballX = 250;
-					ballY = 250;
-					playerOneScore = 0;
-					playerTwoScore = 0;
-					
-				}
-				else if (getPointDistance(e.getPoint(), pSa)<=rSa){
-					gameOver = false;
-					playerOneY = 250;
-					playerTwoY = 250;
-					ballX = 250;
-					ballY = 250;
-					playerOneScore = 0;
-					playerTwoScore = 0;
-					playing = true;
-					
-				}
+		if (gameOver){
+			if ( getPointDistance(e.getPoint(), pMenu)<=rMenu){
+				Sound.play(""); //Click Sound
+				gameOver = false;
+				showTitleScreen = true;
+				playerOneY = 250;
+				playerTwoY = 250;
+				ballX = 250;
+				ballY = 250;
+				playerOneScore = 0;
+				playerTwoScore = 0;
+
 			}
-			
+			else if (getPointDistance(e.getPoint(), pSa)<=rSa){
+				gameOver = false;
+				playerOneY = 250;
+				playerTwoY = 250;
+				ballX = 250;
+				ballY = 250;
+				playerOneScore = 0;
+				playerTwoScore = 0;
+				playing = true;
+
+			}
+		}
+
 	}	
-	
+
 }

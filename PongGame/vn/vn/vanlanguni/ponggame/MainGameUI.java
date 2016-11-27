@@ -19,7 +19,7 @@ public class MainGameUI extends JFrame{
 	private static final int _HEIGHT = 500;
 	private static final int _WIDTH = 500;
 	private PongPanel pongPanel;
-	
+
 	public MainGameUI(){
 		setPreferredSize(new Dimension(_WIDTH, _HEIGHT));
 		setLayout(new BorderLayout());
@@ -30,9 +30,9 @@ public class MainGameUI extends JFrame{
 		setResizable(false);
 	}
 
-    public static void main(String[] args) {
-       MainGameUI mainFrame = new MainGameUI();
-       mainFrame.setVisible(true);
-       mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+	public static void main(String[] args) {
+		MainGameUI mainFrame = new MainGameUI();
+		mainFrame.setVisible(true);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 }
